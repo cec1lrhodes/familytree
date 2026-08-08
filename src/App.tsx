@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 import { TreeList } from "./components/TreeList";
 import { ActionPanel } from "./components/ActionPanel";
-import { ResultPanel } from "./components/ResultPanel";
+import { ResultPanel } from "./components/ResultPanel/ResultPanel.tsx";
 import { SelectedNodeCard } from "./components/SelectedNodeCard";
 
 import { familyTree } from "./data/treeData";

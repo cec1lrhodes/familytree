@@ -1,38 +1,44 @@
 import type { NestedNode } from "../types/tree";
 
-interface PropsList {
+interface Props {
   nodes: NestedNode[];
-
   selectedId: number | null;
-
-  onSelect(id: number): void;
+  onSelect: (id: number) => void;
 }
 
-export function TreeList({ nodes, selectedId, onSelect }: PropsList) {
+export function TreeList({ nodes, selectedId, onSelect }: Props) {
   return (
-    <div className="w-full shrink-0 rounded-xl border border-slate-200 bg-white p-4 shadow-sm lg:w-80">
-      <h3 className="mb-2 px-1 text-sm font-semibold uppercase tracking-wide text-slate-500">
-        Family Tree
-      </h3>
+    <div className="w-full lg:w-96">
+      <h2 className="mb-3 text-lg font-semibold">Family Tree</h2>
 
-      <div className="space-y-0.5">
+      <div className="space-y-1">
         {nodes.map((node) => {
-          const isSelected = selectedId === node.id;
+          const isSelected = node.id === selectedId;
+
           return (
-            <div
+            <button
               key={node.id}
               onClick={() => onSelect(node.id)}
-              style={{ marginLeft: node.depth * 18 }}
-              className={[
-                "relative cursor-pointer rounded-lg py-2 pl-3 pr-2 text-sm transition-colors",
-                node.depth > 0 ? "border-l-2 border-slate-100" : "",
+              className={`w-full rounded-lg px-3 py-2 text-left transition ${
                 isSelected
-                  ? "bg-indigo-600 text-white shadow-sm"
-                  : "text-slate-700 hover:bg-slate-50",
-              ].join(" ")}
+                  ? "bg-indigo-100 text-indigo-900"
+                  : "hover:bg-slate-100"
+              }`}
+              style={{
+                paddingLeft: `${node.depth * 24 + 12}px`,
+              }}
             >
-              {node.name}
-            </div>
+              <div className="flex items-center gap-2">
+                {node.depth > 0 && <span className="text-slate-300">└─</span>}
+
+                <span className="font-medium">{node.name}</span>
+              </div>
+
+              <div className="ml-5 text-xs text-slate-400">
+                ID: {node.id} · [{node.left}, {node.right}] · depth:{" "}
+                {node.depth}
+              </div>
+            </button>
           );
         })}
       </div>
