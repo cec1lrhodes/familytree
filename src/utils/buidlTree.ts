@@ -15,6 +15,8 @@ export const buildTree = (data: FamilyMember[]): TreeNode[] => {
 
   for (const node of data) {
     if (node.parentId === null) {
+      // null значить, що немає батька, тобто це предок головний
+      // чи є поточний елемент найстаршим предком
       roots.push(map[node.id]);
     } else {
       map[node.parentId].children.push(map[node.id]);

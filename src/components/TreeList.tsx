@@ -29,7 +29,7 @@ export function TreeList({ nodes, selectedId, onSelect }: Props) {
               }}
             >
               <div className="flex items-center gap-2">
-                {node.depth > 0 && <span className="text-slate-300">└─</span>}
+                {node.depth > 0 && <span className="text-slate-300">\--</span>}
 
                 <span className="font-medium">{node.name}</span>
               </div>

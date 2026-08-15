@@ -18,3 +18,25 @@ export function flattenTree(tree: TreeNode[]): NestedNode[] {
 
   return result;
 }
+
+// [
+//   {
+//     id: 1,
+//     name: "Ded",
+//     children: [
+//       {
+//         id: 2,
+//         name: "Tato",
+//         children: [
+//           { id: 3, name: "Sun", children: [] }
+//         ]
+//       }
+//     ]
+//   }
+// ]
+
+// [
+//   { id: 1, name: "Ded", left: 1, right: 6, depth: 0, children: [...] },
+//   { id: 2, name: "Tato",   left: 2, right: 5, depth: 1, children: [...] },
+//   { id: 3, name: "Sun",    left: 3, right: 4, depth: 2, children: [...] }
+// ]

@@ -42,47 +42,89 @@ OUTPUT after assignNestedSet: (але треба рекурисвно пройт
 Кузен Женя(L: 76, R: 77, D: 3)
 Кузен Максим(L: 78, R: 79, D: 3)
 
- <!-- <div
-      style={{
-        marginLeft: `${node.depth * 20}px`,
-        borderLeft: "1px dashed #ccc",
-        paddingLeft: "10px",
-      }}
-    >
-      <div>
-        <strong>{node.name}</strong>
-        <small style={{ color: "gray", marginLeft: "10px" }}>
-          (L: {node.left}, R: {node.right}, D: {node.depth})
-        </small>
-      </div>
+BASE:
+[
+{ id: 1, name: "Прадед Гриша", parentId: null },
 
-      {node.children && node.children.length > 0 && (
-        <div className="children-list">
-          {node.children.map((child) => (
-            <TreeNodeView key={child.id} node={child} />
-          ))}
-        </div>
-      )}
-    </div> -->
+{ id: 2, name: "Дед Вася", parentId: 1 },
+{ id: 3, name: "Бабка Маша", parentId: 1 },
 
-FLATTEN TREE -->
-0
-:
-{id: 1, name: 'Прадед Гриша', parentId: null, children: Array(3), depth: 0, …}
-1
-:
-{id: 2, name: 'Дед Вася', parentId: 1, children: Array(4), depth: 1, …}
-2
-:
-{id: 5, name: 'Тетя Таня', parentId: 2, children: Array(2), depth: 2, …}
-3
-:
-{id: 28, name: 'Кузен Рома', parentId: 5, children: Array(0), depth: 3, …}
+{ id: 5, name: "Тетя Таня", parentId: 2 },
+{ id: 6, name: "Дядя Вадик", parentId: 2 },
 
-// Прадед depth = 0
+{ id: 28, name: "Кузен Рома", parentId: 5 },
+{ id: 29, name: "Кузина Вика", parentId: 5 },
+]
 
-// Дед Вася depth = 1
+buildTree():
+[
+{
+id: 1,
+name: "Прадед Гриша",
+parentId: null,
+children: [
+{
+id: 2,
+name: "Дед Вася",
+parentId: 1,
+children: [
+{
+id: 5,
+name: "Тетя Таня",
+parentId: 2,
+children: [
+{
+id: 28,
+name: "Кузен Рома",
+parentId: 5,
+children: []
+},
+{
+id: 29,
+name: "Кузина Вика",
+parentId: 5,
+children: []
+}
+]
+},
+{
+id: 6,
+name: "Дядя Вадик",
+parentId: 2,
+children: []
+}
+]
+},
+{
+id: 3,
+name: "Бабка Маша",
+parentId: 1,
+children: []
+}
+]
+}
+]
 
-// Тетя Таня depth = 2
+assignNestedSet():
 
-// Кузен Рома depth = 3
+Прадед Гриша
+left = 1
+right = 14
+depth = 0
+
+Дед Вася
+left = 2
+right = 11
+depth = 1
+...
+
+flattenTree():
+[
+{ id: 1, left: 1, right: 14, depth: 0 },
+{ id: 2, left: 2, right: 11, depth: 1 },
+{ id: 5, left: 3, right: 8, depth: 2 },
+{ id: 28, left: 4, right: 5, depth: 3 },
+{ id: 29, left: 6, right: 7, depth: 3 },
+{ id: 6, left: 9, right: 10, depth: 2 },
+{ id: 3, left: 12, right: 13, depth: 1 }
+]

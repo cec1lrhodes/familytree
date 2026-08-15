@@ -10,6 +10,7 @@ export function findRoot(tree: NestedNode[]) {
   return tree.find((node) => node.depth === 0);
 }
 
+// усі nodes na n-depth
 export function findDepthNodes(tree: NestedNode[], depth: number) {
   return tree.filter((node) => node.depth === depth);
 }
@@ -109,6 +110,7 @@ export function findDirectSiblings(
 export function findLeaves(tree: NestedNode[], parentId: number): NestedNode[] {
   return findAllChildren(tree, parentId).filter(
     (node) => node.right - node.left === 1,
+    // right - left === 1 у node гарантовано немає дітей
   );
 }
 
